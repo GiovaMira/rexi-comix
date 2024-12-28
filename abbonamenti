@@ -1,0 +1,69 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const loginForm = document.getElementById("login-form");
+    const mainContent = document.getElementById("main-content");
+    const clientForm = document.getElementById("client-form");
+    const clientTableBody = document.querySelector("#client-table tbody");
+    const orderForm = document.getElementById("order-form");
+    const orderTableBody = document.querySelector("#order-table tbody");
+    const clientSelect = document.getElementById("order-client");
+
+    let clients = [];
+    let orders = [];
+
+    loginForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        if (username === "admin" && password === "password") {
+            loginForm.style.display = "none";
+            mainContent.style.display = "block";
+        } else {
+            alert("Credenziali non valide");
+        }
+    });
+
+    clientForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const name = document.getElementById("client-name").value;
+        const surname = document.getElementById("client-surname").value;
+        const phone = document.getElementById("client-phone").value;
+
+        const newClient = { id: Date.now(), name, surname, phone };
+        clients.push(newClient);
+        updateClientTable();
+        updateClientSelect();
+        clientForm.reset();
+    });
+
+    function updateClientTable() {
+        clientTableBody.innerHTML = "";
+        clients.forEach((client) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${client.name}</td>
+                <td>${client.surname}</td>
+                <td>${client.phone}</td>
+                <td><button data-id="${client.id}" class="delete-client">Elimina</button></td>
+            `;
+            clientTableBody.appendChild(row);
+        });
+        document.querySelectorAll(".delete-client").forEach((button) =>
+            button.addEventListener("click", (event) => {
+                const clientId = parseInt(event.target.dataset.id, 10);
+                clients = clients.filter((client) => client.id !== clientId);
+                updateClientTable();
+                updateClientSelect();
+            })
+        );
+    }
+
+    function updateClientSelect() {
+        clientSelect.innerHTML = "<option value=''>Seleziona un cliente</option>";
+        clients.forEach((client) => {
+            const option = document.createElement("option");
+            option.value = client.id;
+            option.textContent = `${client.name} ${client.surname}`;
+            clientSelect.appendChild(option);
+        });
+    }
+});
