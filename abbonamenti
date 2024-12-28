@@ -1,3 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione Clienti e Ordini</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Gestione Clienti e Ordini</h1>
+    </header>
+    <div id="app">
+        <!-- Login Form -->
+        <section id="login-section">
+            <form id="login-form">
+                <label for="username">Username</label>
+                <input type="text" id="username" required>
+                <label for="password">Password</label>
+                <input type="password" id="password" required>
+                <button type="submit">Login</button>
+            </form>
+        </section>
+
+        <!-- Main Content -->
+        <section id="main-content" style="display: none;">
+            <h2>Clienti</h2>
+            <form id="client-form">
+                <label for="client-name">Nome</label>
+                <input type="text" id="client-name" required>
+                <label for="client-surname">Cognome</label>
+                <input type="text" id="client-surname" required>
+                <label for="client-phone">Telefono</label>
+                <input type="text" id="client-phone" required>
+                <button type="submit">Aggiungi Cliente</button>
+            </form>
+            <table id="client-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Cognome</th>
+                        <th>Telefono</th>
+                        <th>Azioni</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <h2>Ordini</h2>
+            <form id="order-form">
+                <label for="order-client">Cliente</label>
+                <select id="order-client" required></select>
+                <label for="order-title">Titolo</label>
+                <input type="text" id="order-title" required>
+                <label for="order-type">Tipo</label>
+                <select id="order-type">
+                    <option value="single">Ordine Singolo</option>
+                    <option value="subscription">Abbonamento</option>
+                </select>
+                <label for="order-notes">Note</label>
+                <textarea id="order-notes"></textarea>
+                <button type="submit">Aggiungi Ordine</button>
+            </form>
+            <table id="order-table">
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Titolo</th>
+                        <th>Tipo</th>
+                        <th>Note</th>
+                        <th>Data</th>
+                        <th>Azioni</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+header {
+    background-color: #0073e6;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+}
+#app {
+    padding: 1rem;
+}
+section {
+    margin: 1rem 0;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+label {
+    font-weight: bold;
+}
+input, select, textarea {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+button {
+    background-color: #0073e6;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("login-form");
     const mainContent = document.getElementById("main-content");
